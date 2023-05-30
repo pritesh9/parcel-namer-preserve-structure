@@ -9,6 +9,8 @@ module.exports = new Namer({
 	name({ bundle, options }) {
 
 		if (options.mode === "production") {
+			const mainEntry = bundle.getMainEntry()
+			if (!mainEntry) return null
 
 			const packageJson = fs.readFileSync(path.join(process.cwd(), 'package.json')).toString();
 			const packageInfo = JSON.parse(packageJson);
