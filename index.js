@@ -9,6 +9,8 @@ module.exports = new Namer({
 	name({ bundle, options }) {
 
 		if (options.mode === "production") {
+			const mainEntry = bundle.getMainEntry()
+			if (!mainEntry) return null
 
 			const packageJson = fs.readFileSync(path.join(process.cwd(), 'package.json')).toString();
 			const packageInfo = JSON.parse(packageJson);
@@ -35,9 +37,10 @@ module.exports = new Namer({
 				console.log("NAME: " + distName + '.' + bundle.type);
 				return distName + '.' + bundle.type;
 			}
-			
-			console.log("NAME: " + distPath + '\\' + distName + '.' + bundle.type);
-			return distPath + '\\' + distName + '.' + bundle.type;
+
+			let name = path.join(distPath, distName + '.' + bundle.type);
+			console.log("NAME: " + name);
+			return name;
 		}
 
 		// This namer handles all files but just in case...
