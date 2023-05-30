@@ -35,9 +35,10 @@ module.exports = new Namer({
 				console.log("NAME: " + distName + '.' + bundle.type);
 				return distName + '.' + bundle.type;
 			}
-			
-			console.log("NAME: " + distPath + '\\' + distName + '.' + bundle.type);
-			return distPath + '\\' + distName + '.' + bundle.type;
+
+			let name = path.join(distPath, distName + '.' + bundle.type);
+			console.log("NAME: " + name);
+			return name;
 		}
 
 		// This namer handles all files but just in case...
